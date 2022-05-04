@@ -25,7 +25,7 @@
         <div id="navigation-container">
           <img src="assets/logo.png" class=logo>
           <ul>
-          <li><a href="http://localhost/Website/sign-up.php">Create an account</a></li>
+          <li><a href="http://localhost/air_quality_project/sign-up.php">Create an account</a></li>
           <li><a href="#loginModal" class="trigger-btn" data-toggle="modal">Login</a></li>
           <li>
             <a
@@ -148,7 +148,7 @@
             </form>
           </div>
           <div class="modal-footer">
-          <p class="signup">Don't have an account ? <a href="http://localhost/Website/sign-up.php">Sign up</a></p>
+          <p class="signup">Don't have an account ? <a href="http://localhost/air_quality_project/sign-up.php">Sign up</a></p>
           </div>
         </div>
       </div>   

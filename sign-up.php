@@ -21,7 +21,7 @@
         <div id="navigation-container">
           <img src="assets/logo.png" class=logo>
           <ul>
-          <li><a href="http://localhost/Website/index.php">Go back</a></li>
+          <li><a href="http://localhost/air_quality_project/index.php">Go back</a></li>
           </ul>
       </div>
 
@@ -52,7 +52,7 @@
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="password" name="confirmPassword" placeholder="Confirm password" required>
                     <input type="Submit" name="" value="Sign Up">
-                    <p class="signup">Already have an account? <a href="http://localhost/Website/index.php">Log in</a></p>
+                    <p class="signup">Already have an account? <a href="http://localhost/air_quality_project/index.php">Log in</a></p>
                 </form>
             </div>
             <div class="imgBx"><img src="assets/splash.png" width="400px" height="400px" alt=""></div>

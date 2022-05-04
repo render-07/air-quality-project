@@ -36,7 +36,7 @@
         </div>
 
         <div class="sidebar">
-          <a href="http://localhost/Website/dashboard.php">
+          <a href="http://localhost/air_quality_project/dashboard.php">
             <span class="material-icons-sharp">grid_view</span>
             <h3>Dashboard</h3>
           </a>
