@@ -1,5 +1,5 @@
 /* Code Written by Rishi Tiwari
-    air_quality_project:- https://tricksumo.com
+    air-quality-project:- https://tricksumo.com
 */
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -65,7 +65,7 @@ void loop() {
   //
   //// Update Host URL here:-
   //
-  //http.begin("http://192.168.0.10/air_quality_project/addData.php");              // Connect to host where MySQL databse is hosted
+  //http.begin("http://192.168.0.10/air-quality-project/addData.php");              // Connect to host where MySQL databse is hosted
   //http.addHeader("Content-Type", "application/x-www-form-urlencoded");            //Specify content-type header
   //
   //
@@ -101,7 +101,7 @@ void postData (String humidity, String temperature, String co, String airFlowVal
       String data = "humidity=" + humidity + "&temperature=" + temperature +
                     "&co=" + co + "&airFlowValue=" + airFlowValue + "&pm1=" + pm1 + "&pm25=" + pm25 + "&pm100=" + pm100 +
                     "&airQuality=" + airQuality + "&airQualityValue=" + airQualityValue;
-      http.begin("http://192.168.0.10/air_quality_project/addData.php"); // Connect to host where MySQL databse is hosted
+      http.begin("http://192.168.0.10/air-quality-project/addData.php"); // Connect to host where MySQL databse is hosted
       http.addHeader("Content-Type", "application/x-www-form-urlencoded"); // Specify content-type header
 
       int httpCode = http.POST(data);   // Send POST request to php file and store server response code in variable named httpCode

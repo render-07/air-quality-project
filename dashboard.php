@@ -57,7 +57,7 @@
             <span class="material-icons-sharp">grid_view</span>
             <h3>Dashboard</h3>
           </a>
-          <a href="http://localhost/air_quality_project/about-us.php">
+          <a href="http://localhost/air-quality-project/about-us.php">
             <span class="material-icons-sharp">people_alt</span>
             <h3>About Us</h3>
           </a>
