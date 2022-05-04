@@ -14,8 +14,6 @@ const int LED_POST_DATA = 2; // post data led indicator
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5; // Set timer to 5 seconds (5000)
 
-#define 
-
 void setup() {
   Serial.begin(115200);
   Serial.println("Communication Started \n\n");
@@ -39,14 +37,14 @@ void setup() {
 
 void loop() {
 
-  String humidity = "";
+  String humidity = " ";
   String temperature = "1212";
   String co = "12";
   String airFlowValue = "dummy data";
   String pm1String = String("22");
   String pm25String = String("45");
   String pm100String = String("1212");
-  String airQuality = "BAD";
+  String airQuality = "HIGH DANGER";
   String airQualityValue = "12";
 
   //HTTPClient http;    // http object of clas HTTPClient
@@ -89,6 +87,7 @@ void loop() {
   //  return; }
 
   postData(humidity, temperature, co, airFlowValue, pm1String, pm25String, pm100String, airQuality, airQualityValue);
+  delay(2000);
 }
 
 void postData (String humidity, String temperature, String co, String airFlowValue,  String pm1,  String pm25,  String pm100, String airQuality, String airQualityValue) {
@@ -123,6 +122,10 @@ void postData (String humidity, String temperature, String co, String airFlowVal
         Serial.println(httpCode);
         String webpage = http.getString();    // Get html webpage output and store it in a string
         Serial.println(webpage + "\n");
+        digitalWrite(LED_POST_DATA, HIGH);
+        delay(1000);
+        digitalWrite(LED_POST_DATA, LOW);
+
       }
       else { // if failed to connect then return and restart
         Serial.print("HTTP Response code: ");
