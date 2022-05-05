@@ -35,17 +35,23 @@ void setup() {
   delay(30);
 }
 
-void loop() {
+double randomDouble(double minf, double maxf)
+{
+  return minf + random(1UL << 31) * (maxf - minf) / (1UL << 31);  // use 1ULL<<63 for max double values)
+}
 
-  String humidity = " ";
-  String temperature = "1212";
-  String co = "12";
-  String airFlowValue = "dummy data";
-  String pm1String = String("22");
-  String pm25String = String("45");
-  String pm100String = String("1212");
-  String airQuality = "HIGH DANGER";
-  String airQualityValue = "12";
+void loop() {
+  String co_Array[3] = {"0.009", "0.010", "0.011"};
+  
+  String humidity = String(random(43, 45)) + " %";
+  String temperature = String(random(28, 33)) + " °C";
+  String co = co_Array[random(0, 3)];
+  String airFlowValue = "1.5";
+  String pm1String = String(random(9, 13));
+  String pm25String = String(random(12, 18));
+  String pm10String = String(random(18, 21));
+  String airQuality = "GOOD";
+  String airQualityValue = pm1String;
 
   //HTTPClient http;    // http object of clas HTTPClient
   //
@@ -86,11 +92,11 @@ void loop() {
   //  http.end();
   //  return; }
 
-  postData(humidity, temperature, co, airFlowValue, pm1String, pm25String, pm100String, airQuality, airQualityValue);
-  delay(2000);
+  postData(humidity, temperature, co, airFlowValue, pm1String, pm25String, pm10String, airQuality, airQualityValue);
+  delay(100);
 }
 
-void postData (String humidity, String temperature, String co, String airFlowValue,  String pm1,  String pm25,  String pm100, String airQuality, String airQualityValue) {
+void postData (String humidity, String temperature, String co, String airFlowValue,  String pm1,  String pm25,  String pm10, String airQuality, String airQualityValue) {
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if (WiFi.status() == WL_CONNECTED) {
@@ -98,7 +104,7 @@ void postData (String humidity, String temperature, String co, String airFlowVal
       HTTPClient http;
 
       String data = "humidity=" + humidity + "&temperature=" + temperature +
-                    "&co=" + co + "&airFlowValue=" + airFlowValue + "&pm1=" + pm1 + "&pm25=" + pm25 + "&pm100=" + pm100 +
+                    "&co=" + co + "&airFlowValue=" + airFlowValue + "&pm1=" + pm1 + "&pm25=" + pm25 + "&pm10=" + pm10 +
                     "&airQuality=" + airQuality + "&airQualityValue=" + airQualityValue;
       http.begin("http://192.168.0.10/air-quality-project/addData.php"); // Connect to host where MySQL databse is hosted
       http.addHeader("Content-Type", "application/x-www-form-urlencoded"); // Specify content-type header
@@ -110,8 +116,8 @@ void postData (String humidity, String temperature, String co, String airFlowVal
       Serial.println("Co " + co);
       Serial.println("Air flow value: " + airFlowValue);
       Serial.println("PM1: " + pm1);
-      Serial.println("PM25: " + pm25);
-      Serial.println("PM100: " + pm100);
+      Serial.println("PM2.5: " + pm25);
+      Serial.println("PM10: " + pm10);
       Serial.println("Air Quality: " + airQuality);
       Serial.println("Air Quality Value:  " + airQualityValue);
 

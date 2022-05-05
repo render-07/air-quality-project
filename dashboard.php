@@ -77,7 +77,9 @@
               <div class="left">
                 <h3>Air Quality</h3>
                 <?php
-                  include('connectionToDb.php');
+                    // $date = new DateTime("now", new DateTimeZone('America/New_York') );
+                    // $date->add(new DateInterval('PT30M'));
+                    // echo $stringDate = $date->format('Y-m-d H:i:s');
                   $getAirQuality = "SELECT airQualityIndex, COUNT(airQualityIndex) AS `value_occurrence` 
                   FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
                   airQualityIndex ORDER BY `value_occurrence` DESC LIMIT 1";
@@ -122,7 +124,7 @@
                   ?>
                 </svg>
                 <div class="number">
-                  <p>10001
+                  <p>9.8
                   <!-- Average -->
                   </p>
                 </div>
@@ -141,12 +143,14 @@
                   $getAirQuality = "SELECT airQualityIndex, COUNT(airQualityIndex) AS `value_occurrence` 
                   FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
                   airQualityIndex ORDER BY `value_occurrence` DESC LIMIT 1";
-                  $result = mysqli_query($connect, $getAirQuality) or die('error');
-                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo
-                    "<h1>".$row["airQualityIndex"]."</h1>";
-                  }         
+                  // $result = mysqli_query($connect, $getAirQuality) or die('error');
+                  // while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                  //   echo
+                  //   "<h1>".$row["airQualityIndex"]."</h1>";
+                  // }      
+                  
                 ?>
+                 <h1>Calm</h1>
               </div>
               <div class="progress">
               <svg>
@@ -182,7 +186,7 @@
                   ?>
                 </svg>
                 <div class="number">
-                  <p>20</p>
+                  <p>1.5</p>
                 </div>
               </div>
             </div>

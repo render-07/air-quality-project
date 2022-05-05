@@ -15,7 +15,7 @@
     if (!empty($_POST['humidity']) && !empty($_POST['temperature']) 
         && !empty($_POST['co']) && !empty($_POST['airFlowValue']) 
         && !empty($_POST['pm1']) && !empty($_POST['pm25']) 
-        && !empty($_POST['pm100']) && !empty($_POST['airQuality']) 
+        && !empty($_POST['pm10']) && !empty($_POST['airQuality']) 
         && !empty($_POST['airQualityValue'])) {
 
         $humidity = $_POST['humidity'];
@@ -24,14 +24,14 @@
         $airFlowValue = $_POST['airFlowValue'];
         $pm1 = $_POST['pm1'];
         $pm25 = $_POST['pm25'];
-        $pm100 = $_POST['pm100'];
+        $pm10 = $_POST['pm10'];
         $airQuality = $_POST['airQuality'];
         $airQualityValue = $_POST['airQualityValue'];
         
         $insert = "INSERT INTO `data` (`id`, `timestamp`, `humidity`, `temperature`, `coValue`, 
         `airFlow`, `pm1`, `pm2.5`, `pm10`, `airQualityIndex`, `airQualityValue`) 
-        VALUES (NULL, NULL, '$humidity', '$temperature', '$co', '$airFlowValue', '$pm1', 
-        '$pm25', '$pm100', '$airQuality', '$airQualityValue')";
+        VALUES (NULL,  NULL, '$humidity', '$temperature', '$co', '$airFlowValue', '$pm1', 
+        '$pm25', '$pm10', '$airQuality', '$airQualityValue')";
         $result = mysqli_query($connect, $insert);
 
         if ($result === true) {
