@@ -16,11 +16,11 @@
   --color-background: #f6f6f9;
 
   --color-good: #66e067;
-  --color-medium: #c6f467;
-  --color-bad: #fee765;
-  --color-moderate-danger: #ffcb66;
-  --color-considerable-danger: #ffac66;
-  --color-high-danger: #ff6664;
+  --color-moderate: #c6f467;
+  --color-unhealthy-sensitive: #fee765;
+  --color-unhealthy: #ffcb66;
+  --color-very-unhealthy: #ffac66;
+  --color-hazardous: #ff6664;
 
   --card-border-radius: 2rem;
   --border-radius-1: 0.4rem;
@@ -292,7 +292,7 @@ main .insights svg circle {
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-good {
+#air-quality-good {
   fill: none;
   stroke: var(--color-good);
   stroke-width: 14;
@@ -300,41 +300,65 @@ main .insights svg circle {
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-medium {
+#air-quality-moderate {
   fill: none;
-  stroke: var(--color-medium);
+  stroke: var(--color-moderate);
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-bad {
+#air-quality-unhealthy-sensitive {
   fill: none;
-  stroke: var(--color-bad);
+  stroke: var(--color-unhealthy-sensitive);
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-moderate-danger {
+#air-quality-unhealthy {
   fill: none;
-  stroke: var(--color-moderate-danger);
+  stroke: var(--color-unhealthy);
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-considerable-danger {
+#air-quality-very-unhealthy {
   fill: none;
-  stroke: var(--color-considerable-danger);
+  stroke: var(--color-very-unhealthy);
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
 }
 
-#air-quality-flow-high-danger {
+#air-quality-hazardous {
   fill: none;
-  stroke: var(--color-high-danger);
+  stroke: var(--color-hazardous);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+}
+
+#air-flow-good {
+  fill: none;
+  stroke: var(--color-good);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+}
+
+#air-flow-bad {
+  fill: none;
+  stroke: var(--color-moderate);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+}
+
+#air-flow-very-bad {
+  fill: none;
+  stroke: var(--color-hazardous);
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);

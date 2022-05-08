@@ -101,32 +101,41 @@
                     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                       echo
                       $airQuality = $row["airQualityIndex"];
-                      if (strcmp($airQuality,"GOOD") == 0) { // green
-                        echo '<circle id="air-quality-flow-good" cx="38" cy="38" r="36"></circle>';
+                      if (strcmp($airQuality,"GOOD") == 0) { 
+                        echo '<circle id="air-quality-good" cx="38" cy="38" r="36"></circle>';
 
-                      } else if (strcmp($airQuality,"MEDIUM") == 0) { // blue
-                        echo '<circle id="air-quality-flow-medium" cx="38" cy="38" r="36"></circle>';
+                      } else if (strcmp($airQuality,"MODERATE") == 0) { 
+                        echo '<circle id="air-quality-moderate" cx="38" cy="38" r="36"></circle>';
 
-                      } else if (strcmp($airQuality,"BAD") == 0) { // yellow
-                        echo '<circle id="air-quality-flow-bad" cx="38" cy="38" r="36"></circle>';
+                      } else if (strcmp($airQuality,"UNHEALTHY FOR SENSITIVE GROUPS") == 0) { 
+                        echo '<circle id="air-quality-unhealthy-sensitive" cx="38" cy="38" r="36"></circle>';
 
-                      } else if (strcmp($airQuality,"MODERATE DANGER") == 0) { // orange
-                        echo '<circle id="air-quality-flow-moderate-danger" cx="38" cy="38" r="36"></circle>';
+                      } else if (strcmp($airQuality,"UNHEALTHY") == 0) { 
+                        echo '<circle id="air-quality-moderate-unhealthy" cx="38" cy="38" r="36"></circle>';
 
-                      }else if (strcmp($airQuality,"CONSIDERABLE DANGER") == 0) { // red
-                        echo '<circle id="air-quality-flow-considerable-danger" cx="38" cy="38" r="36"></circle>';
+                      }else if (strcmp($airQuality,"VERY UNHEALTHY") == 0) { 
+                        echo '<circle id="air-quality-considerable-very-unhealthy" cx="38" cy="38" r="36"></circle>';
 
-                      }else if (strcmp($airQuality,"HIGH DANGER") == 0) { // 
-                        echo '<circle id="air-quality-flow-high-danger" cx="38" cy="38" r="36"></circle>';
+                      }else if (strcmp($airQuality,"HAZARDOUS") == 0) { 
+                        echo '<circle id="air-quality-hazardous" cx="38" cy="38" r="36"></circle>';
 
+                      } else {
+                        echo '<circle id="air-quality-high-danger" cx="38" cy="38" r="36"></circle>';
                       }
                     }
                   ?>
                 </svg>
                 <div class="number">
-                  <p>9.8
-                  <!-- Average -->
-                  </p>
+                  <?php
+                  $getAirQualityVal = "SELECT airQualityValue, COUNT(airQualityValue) AS `value_occurrence` 
+                  FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
+                  airQualityValue ORDER BY `value_occurrence` DESC LIMIT 1";
+                  $result = mysqli_query($connect, $getAirQualityVal) or die('error');
+                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                    echo
+                    "<p>".$row["airQualityValue"]."</p>";
+                  }         
+                ?>
                 </div>
               </div>
             </div>
@@ -139,54 +148,69 @@
               <div class="left">
                 <h3>Air Flow</h3>
                 <?php
-                  include('connectionToDb.php');
-                  $getAirQuality = "SELECT airQualityIndex, COUNT(airQualityIndex) AS `value_occurrence` 
+                  $getAirFlowDesc = "SELECT airFlowValueDescription, COUNT(airFlowValueDescription) AS `value_occurrence` 
                   FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
-                  airQualityIndex ORDER BY `value_occurrence` DESC LIMIT 1";
-                  // $result = mysqli_query($connect, $getAirQuality) or die('error');
-                  // while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                  //   echo
-                  //   "<h1>".$row["airQualityIndex"]."</h1>";
-                  // }      
-                  
+                  airFlowValueDescription ORDER BY `value_occurrence` DESC LIMIT 1";
+                  $result = mysqli_query($connect, $getAirFlowDesc) or die('error');
+                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                    echo
+                    "<h1>".$row["airFlowValueDescription"]."</h1>";
+                  }         
                 ?>
-                 <h1>Calm</h1>
               </div>
               <div class="progress">
               <svg>
                   <?php
                     include('connectionToDb.php');
-                    $getAirQuality = "SELECT airQualityIndex, COUNT(airQualityIndex) AS `value_occurrence` 
+                    $getAirFlow ="SELECT airFlowValueDescription, COUNT(airFlowValueDescription) AS `value_occurrence` 
                     FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
-                    airQualityIndex ORDER BY `value_occurrence` DESC LIMIT 1";
-                    $result = mysqli_query($connect, $getAirQuality) or die('error');
+                    airFlowValueDescription ORDER BY `value_occurrence` DESC LIMIT 1";
+                    $result = mysqli_query($connect, $getAirFlow) or die('error');
                     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                       echo
-                      $airQuality = $row["airQualityIndex"];
-                      if (strcmp($airQuality,"GOOD") == 0) { // green
-                        echo '<circle id="air-quality-flow-good" cx="38" cy="38" r="36"></circle>';
+                      $airFlow = $row["airFlowValueDescription"];
+                      echo $airFlow;
+                      if (strcmp($airFlow,"GOOD") == 0) { // green
+                        echo '<circle id="air-flow-good" cx="38" cy="38" r="36"></circle>';
 
-                      } else if (strcmp($airQuality,"MEDIUM") == 0) { // blue
-                        echo '<circle id="air-quality-flow-medium" cx="38" cy="38" r="36"></circle>';
+                      } else if (strcmp($airFlow,"BAD") == 0) { // blue
+                        echo '<circle id="air-flow-bad" cx="38" cy="38" r="36"></circle>';
 
-                      } else if (strcmp($airQuality,"BAD") == 0) { // yellow
-                        echo '<circle id="air-quality-flow-bad" cx="38" cy="38" r="36"></circle>';
-
-                      } else if (strcmp($airQuality,"MODERATE DANGER") == 0) { // orange
-                        echo '<circle id="air-quality-flow-moderate-danger" cx="38" cy="38" r="36"></circle>';
-
-                      }else if (strcmp($airQuality,"CONSIDERABLE DANGER") == 0) { // red
-                        echo '<circle id="air-quality-flow-considerable-danger" cx="38" cy="38" r="36"></circle>';
-
-                      }else if (strcmp($airQuality,"HIGH DANGER") == 0) { // 
-                        echo '<circle id="air-quality-flow-high-danger" cx="38" cy="38" r="36"></circle>';
-
+                      } else if (strcmp($airFlow,"VERY BAD") == 0) { // yellow
+                        echo '<circle id="air-flow-very-bad" cx="38" cy="38" r="36"></circle>';
                       }
                     }
+
+                    $getAirFlowDesc = "SELECT airFlowValueDescription, COUNT(airFlowValueDescription) AS `value_occurrence` 
+                    FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
+                    airFlowValueDescription ORDER BY `value_occurrence` DESC LIMIT 1";
+                    $result = mysqli_query($connect, $getAirFlowDesc) or die('error');
+                    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                      echo
+                      $airFlow = $row["airFlowValueDescription"];
+                      if (strcmp($airFlow,"CALM") == 0) { // green
+                        echo '<circle id="air-flow-good" cx="38" cy="38" r="36"></circle>';
+
+                      } else if (strcmp($airFlow,"MODERATE") == 0) { // blue
+                        echo '<circle id="air-flow-moderate" cx="38" cy="38" r="36"></circle>';
+
+                      } else if (strcmp($airFlow,"EXTREME") == 0) { // yellow
+                        echo '<circle id="air-flow-bad" cx="38" cy="38" r="36"></circle>';
+                      }
+                    }         
                   ?>
                 </svg>
                 <div class="number">
-                  <p>1.5</p>
+                  <?php
+                  $getAirFlow = "SELECT airFlow, COUNT(airFlow) AS `value_occurrence` 
+                  FROM data WHERE timestamp >= NOW() - INTERVAL 1 HOUR GROUP BY 
+                  airFlow ORDER BY `value_occurrence` DESC LIMIT 1";
+                  $result = mysqli_query($connect, $getAirFlow) or die('error');
+                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                    echo
+                    "<p>".$row["airFlow"]."</p>";
+                  }         
+                ?>
                 </div>
               </div>
             </div>
@@ -205,6 +229,7 @@
                 <th>Temperature</th>
                 <th>CO Gas Value</th>
                 <th>Air Flow (In/min)</th>
+                <th>Air FLow Description</th>
                 <th>PM 1 (μg/m3)</th>
                 <th>PM 2.5 (μg/m3)</th>
                 <th>PM 10 (μg/m3)</th>
@@ -228,6 +253,7 @@
                     <td>".$row["temperature"]."</td>
                     <td>".$row["coValue"]."</td>
                     <td>".$row["airFlow"]."</td>
+                    <td>".$row["airFlowValueDescription"]."</td>
                     <td>".$row["pm1"]."</td>
                     <td>".$row["pm2.5"]."</td>
                     <td>".$row["pm10"]."</td>
