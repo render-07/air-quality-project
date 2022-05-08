@@ -13,7 +13,7 @@
 
      // If values send by NodeMCU are not empty then insert into MySQL database table
     if (!empty($_POST['humidity']) && !empty($_POST['temperature']) 
-        && !empty($_POST['co']) && !empty($_POST['airFlowValue']) 
+        && !empty($_POST['co']) && !empty($_POST['airFlowValue'])  && !empty($_POST['airFlowValueDescription']) 
         && !empty($_POST['pm1']) && !empty($_POST['pm25']) 
         && !empty($_POST['pm10']) && !empty($_POST['airQuality']) 
         && !empty($_POST['airQualityValue'])) {
@@ -22,6 +22,7 @@
         $temperature = $_POST['temperature'];
         $co = $_POST['co'];
         $airFlowValue = $_POST['airFlowValue'];
+        $airFlowValueDescription = $_POST['airFlowValueDescription'];
         $pm1 = $_POST['pm1'];
         $pm25 = $_POST['pm25'];
         $pm10 = $_POST['pm10'];
@@ -29,8 +30,8 @@
         $airQualityValue = $_POST['airQualityValue'];
         
         $insert = "INSERT INTO `data` (`id`, `timestamp`, `humidity`, `temperature`, `coValue`, 
-        `airFlow`, `pm1`, `pm2.5`, `pm10`, `airQualityIndex`, `airQualityValue`) 
-        VALUES (NULL,  NULL, '$humidity', '$temperature', '$co', '$airFlowValue', '$pm1', 
+        `airFlow`, `airFlowValueDescription`, `pm1`, `pm2.5`, `pm10`, `airQualityIndex`, `airQualityValue`) 
+        VALUES (NULL,  NULL, '$humidity', '$temperature', '$co', '$airFlowValue', '$airFlowValueDescription', '$pm1', 
         '$pm25', '$pm10', '$airQuality', '$airQualityValue')";
         $result = mysqli_query($connect, $insert);
 
