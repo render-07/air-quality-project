@@ -71,25 +71,44 @@ unsigned long displayAllData(String humidity, String temperature, String CO, Str
   unsigned long start = micros();
   tft.setTextColor(ILI9341_YELLOW);
   tft.setTextSize(2);
-  tft.setCursor(0, 0);
+
+  tft.setCursor(50, 20);
   tft.print("Temperature: ");
   tft.println(temperature);
+
+  tft.setCursor(50, 40);
   tft.print("Humidity: ");
   tft.println(humidity);
+
+  tft.setCursor(50, 60);
   tft.print("CO: ");
   tft.println(CO);
+
+  tft.setCursor(50, 80);
   tft.print("Air Flow: ");
   tft.println(airFlowStr);
-  tft.print("Air Flow Desciption: ");
+
+  tft.setCursor(50, 100);
+  tft.print("Air Flow Desc: ");
   tft.println(airFlowDesc);
+
+  tft.setCursor(50, 120);
   tft.print("PM 1.0 (ug/m3): ");
   tft.println(pm1);
+
+  tft.setCursor(50, 140);
   tft.print("PM 2.5 (ug/m3): ");
   tft.println(pm25);
+
+  tft.setCursor(50, 160);
   tft.print("PM 10.0 (ug/m3): ");
   tft.println(pm100);
+
+  tft.setCursor(50, 180);
   tft.print("AQI: ");
   tft.println(airQualityIndex);
+
+  tft.setCursor(50, 200);
   tft.print("AQI Value: ");
   tft.println(airQualityIndexValue);
   return micros() - start;
@@ -97,29 +116,18 @@ unsigned long displayAllData(String humidity, String temperature, String CO, Str
 
 void setup()
 {
-  Serial.begin(9600);
-  dht.begin();
-  pms.activeMode();
+  Serial.begin(9600);   // GPIO1, GPIO3 (TX/RX pin on ESP-12E Development Board)
+  Serial1.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
   tft.begin();
-
-  // read diagnostics (optional but can help debug problems)
-  uint8_t x = tft.readcommand8(ILI9341_RDMODE);
-  Serial.print("Display Power Mode: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(ILI9341_RDMADCTL);
-  Serial.print("MADCTL Mode: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(ILI9341_RDPIXFMT);
-  Serial.print("Pixel Format: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(ILI9341_RDIMGFMT);
-  Serial.print("Image Format: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(ILI9341_RDSELFDIAG);
-  Serial.print("Self Diagnostic: 0x"); Serial.println(x, HEX);
-
+  dht.begin();
   welcomeText();
+  Serial.println("***********************");
+  Serial.println("Air PD Co.");
+  Serial.println("***********************");
   delay(3000);
   Serial.print("Connecting to ");
   Serial.println(WIFI_SSID);
   displayWifiCon("Connecting to ", WIFI_SSID, 3);
-
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -145,7 +153,6 @@ void loop()
   String pm100String = "";
   String airQualityIndex = "";
   String airQualityIndexValue = "";
-
   if (pms.read(data))
   {
     /**** Particulate Matter Sensor ****/
@@ -244,11 +251,11 @@ void loop()
       airQualityIndex = "HAZARDOUS";
       Serial.println("Air-quality Index: " + String(aqival) + " " + airQualityIndex);
     }
-    Serial.println();
     postData(humidity, temperature, CO, airFlowStr, airFlowDesc, pm1String, pm25String, pm100String, airQualityIndex, airQualityIndexValue);
     displayAllData(humidity, temperature, CO, airFlowStr, airFlowDesc, pm1String, pm25String, pm100String, airQualityIndex, airQualityIndexValue);
+
+    delay(2000);
   }
-  // Do other stuff...
 }
 
 void postData (String humidity, String temperature, String CO, String airFlowStr, String airFlowDesc, String pm1,  String pm25,  String pm100, String airQualityIndex, String airQualityIndexValue) {
@@ -282,8 +289,8 @@ void postData (String humidity, String temperature, String CO, String airFlowStr
         Serial.println("Values uploaded successfully.");
         Serial.print("HTTP Response code: ");
         Serial.println(httpCode);
-        String webpage = http.getString();    // Get html webpage output and store it in a string
-        Serial.println(webpage + "\n");
+        // String webpage = http.getString();    // Get html webpage output and store it in a string
+        // Serial.println(webpage + "\n");
         delay(1000);
       }
       else { // if failed to connect then return and restart
@@ -301,9 +308,8 @@ void postData (String humidity, String temperature, String CO, String airFlowStr
     }
     lastTime = millis();
   }
+  Serial.println();
 }
-
-
 
 int calcAQI25(int pm25) {
   // Uses formula AQI = ( (pobs - pmin) x (aqimax - aqimin) ) / (pmax - pmin)  + aqimin
